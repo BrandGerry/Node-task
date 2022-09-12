@@ -11,8 +11,8 @@ const taskRouter = express.Router()
 
 taskRouter.get('/', getAllTasks)
 taskRouter.get('/:status', getStatusTasks)
-taskRouter.post('/', taskExist, createTask)
-taskRouter.patch('/:id', updateTask)
-taskRouter.delete('/:id', deleteTask)
+taskRouter.post('/', createTask)
+taskRouter.patch('/:id', taskExist, updateTask)
+taskRouter.delete('/:id', taskExist, deleteTask)
 
 module.exports = { taskRouter }

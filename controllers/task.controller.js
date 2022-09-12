@@ -75,12 +75,11 @@ const updateTask = async (req, res) => {
     try {
         const { task } = req;
 
-        const { finishDate, status } = req.body;
+        const { finishDate } = req.body
+        const finishDateDate = new Date(finishDate)
 
-        finishDateDate = new Date(finishDate);
 
-
-        if (status === "Active") {
+        if (task.status === "Active") {
             if (finishDateDate < task.limitDate)
                 await task.update({ finishDate, status: "Completed" });
             else await task.update({ finishDate, status: "Late" });
@@ -105,14 +104,7 @@ const updateTask = async (req, res) => {
 //FUNCION PARA ELIMINAR LOS TASKS
 const deleteTask = async (req, res) => {
     try {
-        const { id } = req.params
-        const task = await Task.findOne({ where: { id } })
-        if (!task) {
-            return res.status(404).json({
-                status: 'error',
-                message: 'Task not found'
-            })
-        }
+        const { task } = req
         const deleteTask = await task.update({ status: 'Cancelled' })
         res.status(204).json({
             status: 'succes'

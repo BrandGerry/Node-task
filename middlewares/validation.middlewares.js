@@ -1,5 +1,6 @@
 const { body, validationResult } = require('express-validator')
 
+//VALIDAR LOS MENSAJES DE LOS ERROES
 const checkValidation = (req, res, next) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
@@ -15,6 +16,7 @@ const checkValidation = (req, res, next) => {
     next()
 }
 
+//VALIDAR CON EXPRESS VALIDATOR EL TIPO Y EL MODO
 const createUserValidators = [
     body('name')
         .isString().withMessage('Name must be a string')
